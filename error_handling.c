@@ -29,12 +29,14 @@ void	exit_file_error(t_var *px, char *filename)
 
 void	display_error(t_var *px, const char *cmd)
 {
+	(void)px;
 	write(2, "pipex: ", 7);
 	perror(cmd);
 }
 
 void	exit_command_error(t_var *px, char *cmd)
 {
+	(void)cmd;
 	if (px->cmd1)
 		free_array(&px->cmd1);
 	if (px->cmd2)

@@ -59,5 +59,3 @@ void	check_commands(char **argv, t_var *px)
 	else
 		px->exitcode = 0;
 }
-
-
