@@ -35,7 +35,7 @@ typedef struct s_pipex_variables
 	char	*cmd_path;
 }		t_var;
 
-int		pipex(t_var *px);
+int		pipex(t_var *px, char **argv);
 char	*join_paths(const char *dir, const char *cmd);
 char	*find_path_in_envp(char *envp[]);
 char	*get_command_path(const char *cmd, t_var *px);
@@ -57,5 +57,6 @@ void	display_error(t_var *px, const char *cmd);
 void	set_error_and_display(int code, t_var *px, const char *cmd);
 int		fork_first_child(t_var *px, int fd[2]);
 int		fork_second_child(t_var *px, int fd[2]);
+void	init_command2(char **argv, t_var *px);
 
 #endif

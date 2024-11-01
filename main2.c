@@ -16,17 +16,24 @@ void	wait_for_processes(t_var *px_var, int pid1, int pid2)
 {
 	int	status;
 	int	i;
-
+	int	y;
 	i = 0;
 	while (i < 2)
 	{
 		if (pid1 > 0)
+		{
 			waitpid(pid1, &status, 0);
+			y = WEXITSTATUS(status);
+			// printf("%d\n", px_var->exitcode);
+		}
 		if (pid2 > 0)
 		{
 			waitpid(pid2, &status, 0);
 			if (WIFEXITED(status))
+			{
 				px_var->exitcode = WEXITSTATUS(status);
+				//printf("%d\n", px_var->exitcode);
+			}	
 		}
 		i++;
 	}
@@ -41,7 +48,7 @@ void	create_pipe(int fd[2], t_var *px)
 	}
 }
 
-int	pipex(t_var *px)
+int	pipex(t_var *px, char **argv)
 {
 	int	pid1;
 	int	pid2;
@@ -54,6 +61,7 @@ int	pipex(t_var *px)
 		pid1 = fork_first_child(px, fd);
 	if (px->cmd1)
 		free_array(&px->cmd1);
+	init_command2(argv, px);
 	if (!px->error_cmd2 && px->output_fd > -1)
 		pid2 = fork_second_child(px, fd);
 	close(fd[0]);
@@ -76,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	check_fd(argv, &px);
 	init_variables(argv, envp, &px);
-	pipex(&px);
+	pipex(&px, argv);
 	if (px.cmd1)
 		free_array(&px.cmd1);
 	if (px.cmd2)

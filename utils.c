@@ -27,6 +27,20 @@ void	init_variables(char **argv, char **envp, t_var *px)
 		perror("fail from inits after split");
 		exit_command_error(px, argv[2]);
 	}
+	//if (!is_empty_or_space(argv[3]) && !px->error_cmd2)
+	//	px->cmd2 = ft_split(argv[3], ' ');
+	//if (!px->cmd2 && !px->error_cmd2)
+	//{
+	//	clean_up(px);
+	//	perror("fail from inits after split 2");
+	//	exit_command_error(px, argv[3]);
+	//}
+	px->cmd_path = NULL;
+	px->envp = envp;
+}
+
+void	init_command2(char **argv, t_var *px)
+{
 	if (!is_empty_or_space(argv[3]) && !px->error_cmd2)
 		px->cmd2 = ft_split(argv[3], ' ');
 	if (!px->cmd2 && !px->error_cmd2)
@@ -35,8 +49,6 @@ void	init_variables(char **argv, char **envp, t_var *px)
 		perror("fail from inits after split 2");
 		exit_command_error(px, argv[3]);
 	}
-	px->cmd_path = NULL;
-	px->envp = envp;
 }
 
 void	clean_up(t_var *px_var)
