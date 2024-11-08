@@ -6,7 +6,7 @@
 /*   By: hskrzypi <hskrzypi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:42:31 by hskrzypi          #+#    #+#             */
-/*   Updated: 2024/10/22 19:17:14 by hskrzypi         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:39:26 by hskrzypi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,6 @@ void	init_variables(char **argv, char **envp, t_var *px)
 		perror("fail from inits after split");
 		exit_command_error(px, argv[2]);
 	}
-	//if (!is_empty_or_space(argv[3]) && !px->error_cmd2)
-	//	px->cmd2 = ft_split(argv[3], ' ');
-	//if (!px->cmd2 && !px->error_cmd2)
-	//{
-	//	clean_up(px);
-	//	perror("fail from inits after split 2");
-	//	exit_command_error(px, argv[3]);
-	//}
 	px->cmd_path = NULL;
 	px->envp = envp;
 }

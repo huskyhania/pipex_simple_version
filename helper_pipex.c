@@ -6,15 +6,14 @@
 /*   By: hskrzypi <hskrzypi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 21:03:04 by hskrzypi          #+#    #+#             */
-/*   Updated: 2024/10/22 19:08:25 by hskrzypi         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:47:44 by hskrzypi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>// DELETE MEEEE
 
 // Function redirect input to stdin and output to stdout
-//closes fds, calls get cmd path and executes a command, cleans up if exec fails
+// closes fds, calls get cmd path and executes a command, cleans up if exec fails
 void	execute_command(t_var *px, int input_fd, int output_fd, char **cmd)
 {
 	dup2(input_fd, STDIN_FILENO);
@@ -48,22 +47,6 @@ void	handle_first_child(t_var *px, int fd[2])
 void	handle_second_child(t_var *px, int fd[2])
 {
 	close(fd[1]);
-	if (px->output_fd < 0)
-	{
-		close(fd[0]);
-		if (px->cmd_path)
-		{
-			free(px->cmd_path);
-			px->cmd_path = NULL;
-		}
-		if (px->cmd2)
-		{
-			free_array(&px->cmd2);
-			px->cmd2 = NULL;
-		}
-		px->exitcode = 1;
-		exit (px->exitcode);
-	}
 	execute_command(px, fd[0], px->output_fd, px->cmd2);
 	if (px->cmd2)
 		free_array(&px->cmd2);

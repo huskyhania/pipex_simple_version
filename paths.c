@@ -12,7 +12,6 @@
 
 #include "pipex.h"
 
-// Check if the command is executable or handle errors
 static char	*check_command(const char *cmd, t_var *px)
 {
 	if (access(cmd, X_OK) == 0)
@@ -50,7 +49,6 @@ static int	check_access(const char *full_path, t_var *px, int *found)
 	return (-1);
 }
 
-// Create full path and check it
 static char	*check_full_path(const char *cmd, const char *dir,
 	t_var *px, int *found)
 {
@@ -67,7 +65,6 @@ static char	*check_full_path(const char *cmd, const char *dir,
 	return (NULL);
 }
 
-// Iterate through directories to find the command
 static char	*search_in_path(const char *cmd, char **directories, t_var *px)
 {
 	int		i;

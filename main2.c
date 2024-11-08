@@ -16,26 +16,15 @@ void	wait_for_processes(t_var *px_var, int pid1, int pid2)
 {
 	int	status;
 	int	i;
-	int	y;
+
 	i = 0;
-	while (i < 2)
+	if (pid1 > 0)
+		waitpid(pid1, &status, 0);
+	if (pid2 > 0)
 	{
-		if (pid1 > 0)
-		{
-			waitpid(pid1, &status, 0);
-			y = WEXITSTATUS(status);
-			// printf("%d\n", px_var->exitcode);
-		}
-		if (pid2 > 0)
-		{
-			waitpid(pid2, &status, 0);
-			if (WIFEXITED(status))
-			{
-				px_var->exitcode = WEXITSTATUS(status);
-				//printf("%d\n", px_var->exitcode);
-			}	
-		}
-		i++;
+		waitpid(pid2, &status, 0);
+		if (WIFEXITED(status))
+			px_var->exitcode = WEXITSTATUS(status);
 	}
 }
 
